@@ -4,6 +4,7 @@ const app = require('../app');
 const User = require('../models/models.user');
 require('dotenv').config();
 
+
 beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URI);
 })
@@ -23,7 +24,7 @@ describe('Server checking', () => {
         const res = await request(app).get('/');
 
         expect(res.statusCode).toBe(200);
-        expect(res.text).toContain('Server is running');
+        expect(res.text).toContain('Sweet Shop API running');
     })
 })
 
