@@ -2,6 +2,7 @@ const express = require("express");
 
 const authRoutes = require("./routes/routes.auth");
 const adminRoutes = require("./routes/routes.admin");
+const sweetRoutes = require("./routes/routes.sweets.js");
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/sweets", sweetRoutes);
 
 module.exports = app;

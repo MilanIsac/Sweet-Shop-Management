@@ -1,7 +1,7 @@
 require("dotenv").config();
 const request = require("supertest");
 const app = require("../app");
-const Sweet = require("../models/models.sweet");
+const Sweet = require("../models/models.sweets");
 
 describe("Sweets API", () => {
 

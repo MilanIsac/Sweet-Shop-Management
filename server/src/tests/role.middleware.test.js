@@ -32,8 +32,6 @@ describe("Role-based authorization", () => {
         password: "password123"
       });
 
-    userToken = userRes.body.token;
-
     const adminRes = await request(app)
       .post("/api/auth/login")
       .send({
@@ -41,8 +39,11 @@ describe("Role-based authorization", () => {
         password: "password123"
       });
 
+    userToken = userRes.body.token;
     adminToken = adminRes.body.token;
 
+    expect(userRes.statusCode).toBe(200);
+    expect(adminRes.statusCode).toBe(200);
     expect(userToken).toBeDefined();
     expect(adminToken).toBeDefined();
   });
