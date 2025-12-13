@@ -46,7 +46,7 @@ describe("Role-based authorization", () => {
 
   it("should block normal user from admin route", async () => {
     const res = await request(app)
-      .get("/api/admin-only")
+      .get("/api/admin")
       .set("Authorization", `Bearer ${userToken}`);
 
     expect(res.statusCode).toBe(403);
@@ -54,7 +54,7 @@ describe("Role-based authorization", () => {
 
   it("should allow admin user to access admin route", async () => {
     const res = await request(app)
-      .get("/api/admin-only")
+      .get("/api/admin")
       .set("Authorization", `Bearer ${adminToken}`);
 
     expect(res.statusCode).toBe(200);
