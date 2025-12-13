@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers?.authorization;
+module.exports = (req, res, next) => {
+  const authHeader =
+    req.headers.authorization ||
+    req.headers.Authorization;
 
   if (!authHeader) {
     return res.status(401).json({ message: "Authorization header missing" });
@@ -16,9 +18,7 @@ const authMiddleware = (req, res, next) => {
   try {
     req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
-  } catch {
+  } catch (err) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
-
-module.exports = authMiddleware;
