@@ -138,4 +138,19 @@ describe("Admin Sweet Management", () => {
         expect(res.statusCode).toBe(404);
     });
 
+
+    it("non-admin should not delete a sweet", async () => {
+        const sweet = await Sweet.create({
+            name: "Peda",
+            price: 150,
+            stock: 10,
+        });
+
+        const res = await request(app)
+            .delete(`/api/sweets/${sweet._id}`)
+            .set("Authorization", `Bearer ${userToken}`);
+
+        expect([401, 403]).toContain(res.statusCode);
+    });
+
 });
