@@ -47,4 +47,19 @@ describe("Admin Sweet Management", () => {
         expect(res.body.price).toBe(300);
         expect(res.body.stock).toBe(40);
     });
+
+
+    it("non-admin should NOT be able to add a sweet", async () => {
+        const res = await request(app)
+            .post("/api/sweets")
+            .set("Authorization", `Bearer ${userToken}`)
+            .send({
+                name: "Kaju Katli",
+                price: 500,
+                stock: 20
+            });
+
+        expect([401, 403]).toContain(res.statusCode);
+    });
+
 });
