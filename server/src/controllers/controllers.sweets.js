@@ -43,6 +43,13 @@ exports.updateSweet = async (req, res) => {
       return res.status(404).json({ message: "Sweet not found" });
     }
 
+    if (price !== undefined && price < 0) {
+      return res.status(400).json({ message: "Invalid price" });
+    }
+    if (stock !== undefined && stock < 0) {
+      return res.status(400).json({ message: "Invalid stock" });
+    }
+
     const updated = await Sweet.findByIdAndUpdate(
       id,
       req.body,
