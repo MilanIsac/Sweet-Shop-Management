@@ -1,4 +1,4 @@
-Sweet Shop Management System
+# Sweet Shop Management System
 
 A full-stack MERN application for managing sweets with authentication, role-based access control (Admin/User), CRUD operations, and admin dashboard.
 
@@ -56,28 +56,74 @@ Jest tests for APIs
 
 
 📂 Project Structure
-
-sweet shop mgmt/
+```
+sweet-shop-mgmt/
 │
-├── server/
+├── server/                         # Backend (Node + Express)
 │   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── app.js
-│   │   └── server.js
-│   └── tests/
+│   │   ├── controllers/            # Business logic
+│   │   │   ├── controllers.auth.js
+│   │   │   ├── controllers.sweets.js
+│   │   │   └── controllers.admin.js
+│   │   │
+│   │   ├── routes/                 # API routes
+│   │   │   ├── routes.auth.js
+│   │   │   ├── routes.sweets.js
+│   │   │   └── routes.admin.js
+│   │   │
+│   │   ├── middleware/             # Middlewares
+│   │   │   ├── middleware.auth.js
+│   │   │   ├── middleware.role.js
+│   │   │   └── middleware.admin.js
+│   │   │
+│   │   ├── models/                 # Mongoose models
+│   │   │   ├── models.user.js
+│   │   │   └── models.sweet.js
+│   │   │
+│   │   ├── tests/                  # Jest tests
+│   │   │   ├── auth.test.js
+│   │   │   ├── sweets.test.js
+│   │   │   ├── sweets.admin.test.js
+│   │   │   └── role.middleware.test.js
+│   │   │
+│   │   ├── app.js                  # Express app config
+│   │   └── server.js               # Server entry point
+│   │
+│   ├── .env                        # Environment variables
+│   ├── package.json
+│   └── package-lock.json
 │
-└── client/
-    └── frontend/
-        ├── src/
-        │   ├── Pages/
-        │   ├── auth/
-        │   ├── api/
-        │   ├── components/
-        │   ├── App.jsx
-        │   └── main.jsx
+├── client/
+│   └── frontend/                   # Frontend (React + Vite)
+│       ├── src/
+│       │   ├── Pages/              # Pages
+│       │   │   ├── Signup.jsx
+│       │   │   ├── Login.jsx
+│       │   │   ├── Sweets.jsx
+│       │   │   └── Admin.jsx
+│       │   │
+│       │   ├── components/         # Reusable components
+│       │   │   ├── Navbar.jsx
+│       │   │   ├── ProtectedRoute.jsx
+│       │   │   └── AdminRoute.jsx
+│       │   │
+│       │   ├── auth/               # Auth context & hooks
+│       │   │   ├── authContext.jsx
+│       │   │   ├── authProvider.jsx
+│       │   │   └── useAuth.js
+│       │   │
+│       │   ├── api/                # Axios API calls
+│       │   │   └── api.js
+│       │   │
+│       │   ├── App.jsx
+│       │   └── main.jsx
+│       │
+│       ├── index.html
+│       ├── package.json
+│       └── vite.config.js
+│
+└── README.md
+```
 
 
 ⚙️ Backend Setup
