@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message: "Authorization header missing" });
   }
 
+
   if (!authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Invalid authorization format" });
   }
