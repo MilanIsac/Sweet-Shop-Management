@@ -11,5 +11,4 @@ router.post("/", auth, requireRole("admin"), createSweet);
 router.put("/:id", auth, requireRole("admin"), updateSweet);
 router.delete("/:id", auth, requireRole("admin"), deleteSweet);
 
-
 module.exports = router;
