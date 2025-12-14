@@ -80,4 +80,19 @@ describe("Admin Sweet Management", () => {
     });
 
 
+    it("admin should be able to delete a sweet", async () => {
+        const sweet = await Sweet.create({
+            name: "Barfi",
+            price: 300,
+            stock: 15
+        });
+
+        const res = await request(app)
+            .delete(`/api/sweets/${sweet._id}`)
+            .set("Authorization", `Bearer ${adminToken}`);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.message).toBe("Sweet deleted");
+    });
+
 });
