@@ -8,12 +8,11 @@ let adminToken;
 beforeAll(async () => {
   await User.deleteMany({});
 
-  // create admin
   await request(app)
     .post("/api/auth/register")
     .send({
       name: "Admin",
-      email: "admin@shop.com",
+      email: "biz@admin.com",
       password: "password123",
       role: "admin"
     });
@@ -21,7 +20,7 @@ beforeAll(async () => {
   const loginRes = await request(app)
     .post("/api/auth/login")
     .send({
-      email: "admin@shop.com",
+      email: "biz@admin.com",
       password: "password123"
     });
 
@@ -32,27 +31,19 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("Sweet Validation", () => {
+describe("Sweet Business Rules", () => {
 
-  it("should fail when required fields are missing", async () => {
+  it("should not allow negative price", async () => {
     const res = await request(app)
       .post("/api/sweets")
       .set("Authorization", `Bearer ${adminToken}`)
-      .send({ name: "Ladoo" }); // missing price & stock
+      .send({
+        name: "Bad Sweet",
+        price: -10,
+        stock: 5
+      });
 
     expect(res.statusCode).toBe(400);
-    expect(res.body.message).toBeDefined();
-  });
-
-  it("should return 404 for invalid sweet ID", async () => {
-    const invalidId = "12345";
-
-    const res = await request(app)
-      .put(`/api/sweets/${invalidId}`)
-      .set("Authorization", `Bearer ${adminToken}`)
-      .send({ price: 500 });
-
-    expect(res.statusCode).toBe(404);
   });
 
 });
