@@ -10,12 +10,12 @@ beforeAll(async () => {
 
 
 describe('Server checking', () => {
-    it('should respond with 200 status code', async () => {
-        const res = await request(app).get('/');
+  it('should respond with 200 status code', async () => {
+    const res = await request(app).get('/');
 
-        expect(res.statusCode).toBe(200);
-        expect(res.text).toContain('Sweet Shop API running');
-    })
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toContain('Sweet Shop API running');
+  })
 })
 
 describe("Authentication APIs", () => {
@@ -86,6 +86,12 @@ describe("Authentication APIs", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.token).toBeDefined();
   });
+
+  it("should block access without token", async () => {
+    const res = await request(app).get("/api/admin");
+    expect(res.statusCode).toBe(401);
+  });
+
 });
 
 
