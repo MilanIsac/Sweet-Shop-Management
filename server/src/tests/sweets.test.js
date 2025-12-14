@@ -22,4 +22,13 @@ describe("Sweets API", () => {
     expect(res.body.sweets.length).toBe(2);
     expect(res.body.sweets[0].name).toBeDefined();
   });
+
+  it("should support pagination", async () => {
+    const res = await request(app)
+      .get("/api/sweets?page=1&limit=2");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.sweets.length).toBeLessThanOrEqual(2);
+  });
+
 });
