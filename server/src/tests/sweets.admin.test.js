@@ -62,4 +62,22 @@ describe("Admin Sweet Management", () => {
         expect([401, 403]).toContain(res.statusCode);
     });
 
+
+    it("admin should be able to update a sweet", async () => {
+        const sweet = await Sweet.create({
+            name: "Ladoo",
+            price: 200,
+            stock: 30
+        });
+
+        const res = await request(app)
+            .put(`/api/sweets/${sweet._id}`)
+            .set("Authorization", `Bearer ${adminToken}`)
+            .send({ price: 250 });
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.price).toBe(250);
+    });
+
+
 });
