@@ -115,4 +115,18 @@ describe("Admin Sweet Management", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe("Sweet deleted");
     });
+
+    it("should fail if sweet name is missing", async () => {
+        const res = await request(app)
+            .post("/api/sweets")
+            .set("Authorization", `Bearer ${adminToken}`)
+            .send({
+                price: 100,
+                stock: 10,
+            });
+
+        expect(res.statusCode).toBe(400);
+        expect(res.body.message).toBeDefined();
+    });
+
 });
