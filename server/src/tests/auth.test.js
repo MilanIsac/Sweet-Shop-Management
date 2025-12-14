@@ -2,6 +2,11 @@ require('dotenv').config();
 const request = require('supertest');
 const app = require('../app');
 const User = require('../models/models.user');
+const mongoose = require('mongoose');
+
+beforeAll(async () => {
+  await User.deleteMany({});
+});
 
 
 describe('Server checking', () => {
@@ -82,3 +87,13 @@ describe("Authentication APIs", () => {
     expect(res.body.token).toBeDefined();
   });
 });
+
+
+afterEach(async () => {
+  await User.deleteMany({});
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
