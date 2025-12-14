@@ -103,6 +103,14 @@ describe("Authentication APIs", () => {
     expect(res.statusCode).toBe(400);
   });
 
+  it("should reject expired token", async () => {
+    const res = await request(app)
+      .get("/api/admin")
+      .set("Authorization", "Bearer expiredtoken");
+
+    expect(res.statusCode).toBe(401);
+  });
+
 });
 
 
