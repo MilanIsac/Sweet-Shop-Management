@@ -38,15 +38,15 @@ exports.deleteSweet = async (req, res) => {
   res.status(200).json({ message: "Sweet deleted" });
 };
 
+const validateSweet = ({ name, price, stock }) =>
+  name && price && stock;
 
 exports.createSweet = async (req, res) => {
-  const { name, price, stock } = req.body;
-
-  if (!name || !price || !stock) {
-    return res.status(400).json({ message: "All fields required" });
+  if (!validateSweet(req.body)) {
+    return res.status(400).json({ message: "Invalid sweet data" });
   }
 
-  const sweet = await Sweet.create({ name, price, stock });
+  const sweet = await Sweet.create(req.body);
   res.status(201).json(sweet);
 };
 
