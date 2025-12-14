@@ -42,8 +42,8 @@ exports.deleteSweet = async (req, res) => {
 exports.createSweet = async (req, res) => {
   const { name, price, stock } = req.body;
 
-  if (!name || price == null || stock == null) {
-    return res.status(400).json({ message: "All fields are required" });
+  if ([name, price, stock].some(v => v === undefined)) {
+    return res.status(400).json({ message: "Missing required fields" });
   }
 
   const sweet = await Sweet.create({ name, price, stock });
