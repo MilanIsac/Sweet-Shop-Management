@@ -3,8 +3,10 @@ const request = require("supertest");
 const app = require("../app");
 const User = require("../models/models.user");
 const Sweet = require("../models/models.sweets");
+const mongoose = require('mongoose');
 
 let adminToken;
+let userToken;
 
 describe("Admin Sweet Management", () => {
 
@@ -12,25 +14,44 @@ describe("Admin Sweet Management", () => {
         await User.deleteMany({});
         await Sweet.deleteMany({});
 
-        await User.create({
-            name: "Admin User",
-            email: "admin@test.com",
-            password: "password123",
-            role: "admin"
-        });
+        // create normal user
+        await request(app)
+            .post("/api/auth/register")
+            .send({
+                name: "Normal User",
+                email: "user@test.com",
+                password: "password123"
+            });
 
-        const res = await request(app)
+        const userLogin = await request(app)
+            .post("/api/auth/login")
+            .send({
+                email: "user@test.com",
+                password: "password123"
+            });
+
+        userToken = userLogin.body.token;
+
+        // create admin user
+        await request(app)
+            .post("/api/auth/register")
+            .send({
+                name: "Admin User",
+                email: "admin@test.com",
+                password: "password123",
+                role: "admin"
+            });
+
+        const adminLogin = await request(app)
             .post("/api/auth/login")
             .send({
                 email: "admin@test.com",
                 password: "password123"
             });
 
-        adminToken = res.body.token;
-
-        expect(res.statusCode).toBe(200);
-        expect(adminToken).toBeDefined();
+        adminToken = adminLogin.body.token;
     });
+
 
     it("admin should be able to add a sweet", async () => {
         const res = await request(app)
@@ -94,5 +115,4 @@ describe("Admin Sweet Management", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe("Sweet deleted");
     });
-
 });
