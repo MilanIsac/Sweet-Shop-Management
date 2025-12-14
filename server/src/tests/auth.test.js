@@ -92,6 +92,17 @@ describe("Authentication APIs", () => {
     expect(res.statusCode).toBe(401);
   });
 
+  it("should reject login with wrong password", async () => {
+    const res = await request(app)
+      .post("/api/auth/login")
+      .send({
+        email: "test@example.com",
+        password: "wrongpassword"
+      });
+
+    expect(res.statusCode).toBe(400);
+  });
+
 });
 
 
