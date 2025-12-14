@@ -7,5 +7,7 @@ const { requireRole } = require("../middleware/middleware.admin");
 
 router.get("/", getAllSweets);
 router.post("/", auth, requireRole("admin"), createSweet);
+router.put("/:id", auth, requireRole("admin"), updateSweet);
+
 
 module.exports = router;

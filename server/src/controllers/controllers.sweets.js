@@ -13,3 +13,17 @@ exports.createSweet = async (req, res) => {
   res.status(201).json(sweet);
 };
 
+exports.updateSweet = async (req, res) => {
+  const sweet = await Sweet.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+
+  if (!sweet) {
+    return res.status(404).json({ message: "Sweet not found" });
+  }
+
+  res.status(200).json(sweet);
+};
+
