@@ -129,4 +129,13 @@ describe("Admin Sweet Management", () => {
         expect(res.body.message).toBeDefined();
     });
 
+    it("should return 404 for invalid sweet ID", async () => {
+        const res = await request(app)
+            .put("/api/sweets/invalid-id")
+            .set("Authorization", `Bearer ${adminToken}`)
+            .send({ price: 200 });
+
+        expect(res.statusCode).toBe(404);
+    });
+
 });
