@@ -12,13 +12,11 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
 
-    // Validate password length
     if (password.length < 6) {
       return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
@@ -28,7 +26,6 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    // Validate role if provided
     if (role && !["user", "admin"].includes(role)) {
       return res.status(400).json({ message: "Invalid role" });
     }

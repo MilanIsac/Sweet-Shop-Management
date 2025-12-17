@@ -1,7 +1,6 @@
 const Sweet = require("../models/models.sweets");
 const mongoose = require("mongoose");
 
-/* ---------------- GET ALL SWEETS ---------------- */
 exports.getAllSweets = async (req, res) => {
   try {
     const sweets = await Sweet.find();
@@ -14,7 +13,6 @@ exports.getAllSweets = async (req, res) => {
   }
 };
 
-/* ---------------- CREATE SWEET ---------------- */
 exports.createSweet = async (req, res) => {
   try {
     const { name, price, stock } = req.body;
@@ -34,7 +32,6 @@ exports.createSweet = async (req, res) => {
   }
 };
 
-/* ---------------- UPDATE SWEET ---------------- */
 exports.updateSweet = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,7 +63,6 @@ exports.updateSweet = async (req, res) => {
   }
 };
 
-/* ---------------- DELETE SWEET ---------------- */
 exports.deleteSweet = async (req, res) => {
   try {
     const { id } = req.params;
